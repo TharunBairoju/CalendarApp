@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+   db:
+     image: tharunb/mysqlimage:latest
+     restart: always
+     ports:
+     - "3320:3320"
+       
+   app:
+    build: .
+    ports:
+      - "8989:8989"
+    depends_on:
+      - db
+    links:
+      - db
+    environment:
+      - database.url=jdbc:mysql://db/calendar_blocking
